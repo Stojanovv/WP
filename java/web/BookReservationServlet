@@ -58,17 +58,26 @@ public class BookReservationServlet extends HttpServlet {
         String params = String.format("bookTitle=%s&readerName=%s&readerAddress=%s&numberOfCopies=%s",
                 bookReservation.getBookTitle(), bookReservation.getReaderName(), bookReservation.getReaderAddress(), bookReservation.getNumberOfCopies());
 
-        List<String> lastViewed = new ArrayList<>();
-        Object lastViewedSessionObject = request.getSession().getAttribute("lastViewed");
-        if(lastViewedSessionObject != null) {
-            lastViewed = (List<String>) lastViewedSessionObject;
-            if(lastViewed.size() >= 5) {
-                lastViewed.removeLast();
-            }
-        }
-        lastViewed.addFirst(bookReservation.getBookTitle());
-        request.getSession().setAttribute("lastViewed", lastViewed);
+
+        IWebExchange webExchange = JakartaServletWebApplication
+                .buildApplication(request.getServletContext())
+                .buildExchange(request, response);
+        WebContext context = new WebContext(webExchange);
+
+        context.setVariable("reservation", bookReservation);
+        context.setVariable("ipAddress", request.getRemoteAddr());
+
+
+//        if (bookReservation.getBookTitle()==null || bookReservation.getBookTitle().isEmpty()){
+//            response.sendRedirect("/x");
+//        }else{
+//            response.sendRedirect("/bookReservation?" + params);
+//        }
 
         response.sendRedirect("/bookReservation?" + params);
+
+
+
+
     }
 }
