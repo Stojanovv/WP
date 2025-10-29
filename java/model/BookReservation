@@ -1,0 +1,36 @@
+package mk.ukim.finki.wp.lab.model;
+
+import lombok.Data;
+import lombok.Getter;
+
+@Data
+@Getter
+public class BookReservation {
+    private String bookTitle;
+    private String readerName;
+    private String ReaderAddress;
+    private int numberOfCopies;
+
+    public BookReservation(String bookTitle, String readerName, String readerAddress, int numberOfCopies) {
+        this.bookTitle = bookTitle;
+        this.readerName = readerName;
+        ReaderAddress = readerAddress;
+        this.numberOfCopies = numberOfCopies;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public String getReaderName() {
+        return readerName;
+    }
+
+    public String getReaderAddress() {
+        return ReaderAddress;
+    }
+
+    public int getNumberOfCopies() {
+        return numberOfCopies;
+    }
+}
