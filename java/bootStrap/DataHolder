@@ -1,0 +1,31 @@
+package mk.ukim.finki.wp.lab.bootstrap;
+
+import jakarta.annotation.PostConstruct;
+import mk.ukim.finki.wp.lab.model.Book;
+import mk.ukim.finki.wp.lab.model.BookReservation;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+@Component
+public class DataHolder {
+    public static List<Book> books = new ArrayList<>();
+    public static List<BookReservation> reservation = new ArrayList<>();
+
+    @PostConstruct
+
+    public void init(){
+        books.add(new Book("Sunshine","x",10));
+        books.add(new Book("Clerks","X",8));
+        books.add(new Book("Predator","X",7));
+        books.add(new Book("Robocop","X",9));
+        books.add(new Book("Dredd","Y",9));
+        books.add(new Book("Akira","Y",9));
+        books.add(new Book("Tremors","Y",10));
+        books.add(new Book("Alien","Z",10));
+        books.add(new Book("Sinister ","Z",8));
+        books.add(new Book("Halloween ","Z",10));
+
+    }
+
+}
