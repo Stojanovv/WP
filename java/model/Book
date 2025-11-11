@@ -1,22 +1,22 @@
 package mk.ukim.finki.wp.lab.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Data
-@Getter
-@Setter
+//import lombok.Data;
+
+
+//@Data
 public class Book {
     private String title;
     private String genre;
     private double averageRating;
+    private Long id;
+    private Autor autor;
 
     public Book(String title, String genre, double averageRating) {
         this.title = title;
         this.genre = genre;
         this.averageRating = averageRating;
+        this.id=(long) (Math.random()*1000);
     }
 
     public String getTitle() {
@@ -29,5 +29,29 @@ public class Book {
 
     public double getAverageRating() {
         return averageRating;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
     }
 }
