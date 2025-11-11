@@ -1,0 +1,19 @@
+package mk.ukim.finki.wp.lab.repository;
+
+import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
+import mk.ukim.finki.wp.lab.model.Autor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+@Repository
+public class AuthorRepositoryImpl implements AuthorRepository {
+    @Override
+    public List<Autor> findAll() {
+        return DataHolder.autors;
+    }
+
+    @Override
+    public Autor findById(long id) {
+        return DataHolder.autors.stream().filter(a->a.getId().equals(id)).findFirst().orElse(null);
+    }
+}
