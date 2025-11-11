@@ -1,0 +1,79 @@
+package mk.ukim.finki.wp.lab.web.controler;
+
+import mk.ukim.finki.wp.lab.service.BookServiceImpl;
+import org.springframework.boot.Banner;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/books")
+public class BookController {
+
+    private final BookServiceImpl bookServiceImpl;
+
+    public BookController(BookServiceImpl bookServiceImpl) {
+        this.bookServiceImpl = bookServiceImpl;
+    }
+
+    @GetMapping
+    public String getBooksPage(@RequestParam(required = false) String error, Model model){
+        if (error!=null){
+            model.addAttribute("error",error);
+        }
+
+        model.addAttribute("books",bookServiceImpl.listAll());
+
+        return "listBooks";
+    }
+
+    @GetMapping("/add")
+    public String saveBook(@RequestParam String title,
+                           @RequestParam String genre,
+                           @RequestParam Double averageRating,
+                           @RequestParam Long authorId){
+
+        bookServiceImpl.add(title,genre,averageRating,authorId);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/book-form")
+    public String getAddBookPage(Model model) {
+        model.addAttribute("book", null);
+        model.addAttribute("formAction", "/books/add");
+        return "book-form";
+    }
+
+    @GetMapping("/book-form/{bookId}")
+    public String getEditBookPage(@PathVariable Long bookId, Model model) {
+        if (bookId==null){
+            return "redirect:/books?error=BookNotFound";
+        }
+        model.addAttribute("book", bookServiceImpl.findById(bookId));
+        model.addAttribute("formAction", "/books/edit/" + bookId);
+        return "book-form";
+    }
+
+    @PostMapping("/edit/{bookId}")
+    public String editBook(@PathVariable Long bookId,
+                           @RequestParam String title,
+                           @RequestParam String genre,
+                           @RequestParam Double averageRating,
+                           @RequestParam Long authorId){
+        bookServiceImpl.update(bookId,title,genre,averageRating,authorId);
+        return "redirect:/books";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteBook(@PathVariable Long id){
+        bookServiceImpl.delete(id);
+        return "redirect:/books";
+    }
+
+//    @GetMapping("/book-form")
+//    public String getAddBookPage(Model model){
+//        return "book-form";
+//    }
+
+
+}
