@@ -1,0 +1,10 @@
+package mk.ukim.finki.wp.lab.repository;
+
+import mk.ukim.finki.wp.lab.model.Autor;
+
+import java.util.List;
+
+public interface AuthorRepository {
+    List<Autor>findAll();
+    Autor findById(long id);
+}
