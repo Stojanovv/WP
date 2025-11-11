@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header>Book Reservation Edited Page</header>
+
+<div>
+  <h2 th:text="${bookId != null ? 'Edit' : 'Add'} + 'book:'"></h2>
+  <form th:action="@{${formAction}}" method="post">
+  <input type="hidden" name="bookId" th:value="${bookId}">
+
+  <label>Name:</label>
+  <input type="text" name="title" th:value="${book.getTitle()!=null} ? ${book.getTitle()} : ''" required/><br/>
+
+  <label>Genre:</label>
+  <input type="text" name="genre" th:value="${book.getGenre()!=null} ? ${book.getGenre()} : ''" required/> <br/>
+
+  <label>Average Rating:</label>
+  <input type="number" name="averageRating" th:value="${book.getAverageRating()!=null} ? ${book.getAverageRating()}" required/><br/>
+
+  <label>Author:</label>
+  <input type="text" name="authorId" th:value="${book.autor.getId() != null} ? ${book.autor.getId()} : ''" required/><br/>
+
+  <button th:text="${bookId!=null ? 'Edit' : 'Add'} + 'book'" type="submit">Submit</button>
+  </form>
+</div>
+
+
+</body>
+</html>
+
